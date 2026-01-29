@@ -6,10 +6,10 @@ export default function AlertModal({ isOpen, onClose, type = 'info', title, mess
   const typeConfig = {
     info: {
       icon: Info,
-      bgColor: 'bg-blue-50',
-      iconColor: 'text-blue-500',
-      titleColor: 'text-blue-900',
-      buttonColor: 'bg-blue-500 hover:bg-blue-600',
+      bgColor: 'bg-primary-50',
+      iconColor: 'text-primary-600',
+      titleColor: 'text-primary-900',
+      buttonColor: 'bg-primary hover:bg-primary-600 text-gray-900',
     },
     warning: {
       icon: AlertCircle,
