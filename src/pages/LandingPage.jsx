@@ -1,5 +1,6 @@
 import { Heart, Activity, Shield, Users, TrendingUp, Clock, Bell, ChevronRight } from 'lucide-react';
 import HeartbeatWaveform from '../components/HeartbeatWaveform';
+import HealthChatbot from '../components/HealthChatbot';
 import { useState, useEffect } from 'react';
 
 export default function LandingPage({ onNavigate }) {
@@ -254,6 +255,9 @@ export default function LandingPage({ onNavigate }) {
           </p>
         </div>
       </footer>
+
+      {/* Health Chatbot */}
+      <HealthChatbot />
     </div>
   );
 }

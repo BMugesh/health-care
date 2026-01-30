@@ -12,6 +12,9 @@ export default function PatientProfileModal({ isOpen, onClose, profileData, onUp
     console.log('Modal opened with profileData:', profileData);
     if (profileData) {
       // Map backend data to modal format
+      // Handle photo from various possible fields
+      const photoUrl = profileData.photoPreview || profileData.photo || profileData.photoUrl || null;
+
       setEditData({
         firstName: profileData.firstName || '',
         lastName: profileData.lastName || '',
@@ -21,7 +24,7 @@ export default function PatientProfileModal({ isOpen, onClose, profileData, onUp
         gender: profileData.gender || '',
         address: typeof profileData.address === 'string' ? profileData.address :
           `${profileData.address?.street || ''} ${profileData.address?.city || ''} ${profileData.address?.state || ''} ${profileData.address?.zipCode || ''}`.trim() || '',
-        photoPreview: profileData.photoPreview || null,
+        photoPreview: photoUrl,
       });
     }
   }, [profileData, isOpen]);
@@ -142,14 +145,28 @@ export default function PatientProfileModal({ isOpen, onClose, profileData, onUp
                 {editData?.photoPreview ? (
                   <img
                     src={editData.photoPreview}
-                    alt={editData?.name || 'Patient'}
+                    alt={`${editData?.firstName || ''} ${editData?.lastName || ''}`.trim() || 'Patient'}
                     className="w-40 h-40 rounded-full object-cover border-4 border-primary-200"
+                    onError={(e) => {
+                      // Fallback if image fails to load
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
                   />
-                ) : (
-                  <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary-300 to-secondary-300 flex items-center justify-center border-4 border-primary-200">
+                ) : null}
+                <div
+                  className={`w-40 h-40 rounded-full bg-gradient-to-br from-primary-300 to-secondary-300 flex items-center justify-center border-4 border-primary-200 ${editData?.photoPreview ? 'hidden' : 'flex'}`}
+                  style={{ display: editData?.photoPreview ? 'none' : 'flex' }}
+                >
+                  {editData?.firstName || editData?.lastName ? (
+                    <span className="text-5xl font-bold text-gray-900">
+                      {(editData?.firstName?.[0] || '').toUpperCase()}
+                      {(editData?.lastName?.[0] || '').toUpperCase()}
+                    </span>
+                  ) : (
                     <User className="w-20 h-20 text-gray-900" />
-                  </div>
-                )}
+                  )}
+                </div>
                 {isEditing && (
                   <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
                     <Camera className="w-8 h-8 text-white" />

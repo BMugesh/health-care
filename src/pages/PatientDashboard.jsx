@@ -16,6 +16,7 @@ import {
 import PulseGauge from '../components/PulseGauge';
 import StatusBadge from '../components/StatusBadge';
 import PatientProfileModal from '../components/PatientProfileModal';
+import HealthChatbot from '../components/HealthChatbot';
 import { patientService } from '../services/api';
 
 export default function PatientDashboard({ patientData, onNavigate, onLogout }) {
@@ -428,6 +429,9 @@ export default function PatientDashboard({ patientData, onNavigate, onLogout }) 
           </p>
         </div>
       </footer>
+
+      {/* Health Chatbot */}
+      <HealthChatbot />
     </div>
   );
 }

@@ -17,6 +17,7 @@ import PulseGauge from '../components/PulseGauge';
 import StatusBadge from '../components/StatusBadge';
 import AlertModal from '../components/AlertModal';
 import ProviderProfileViewModal from '../components/ProviderProfileViewModal';
+import HealthChatbot from '../components/HealthChatbot';
 
 import { patientService } from '../services/api';
 
@@ -684,6 +685,9 @@ export default function AdminDashboard({ onNavigate, onLogout, providerData }) {
         onClose={() => setShowProfileModal(false)}
         providerData={providerData}
       />
+
+      {/* Health Chatbot */}
+      <HealthChatbot />
     </div>
   );
 }
